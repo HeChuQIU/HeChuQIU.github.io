@@ -1,0 +1,53 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import {SITE_TITLE, SITE_DESCRIPTION} from '../consts';
+---
+
+<!doctype html>
+<html lang="zh-Hans-CN">
+<head>
+    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION}/>
+</head>
+<body>
+<Header/>
+<div class="bg-box" />
+<div class="bg-placeholder-box">
+    <h1 style="color: white">
+        这是首页
+    </h1>
+</div>
+<main>
+    <p>
+        这里暂时没有内容，不过很快就会有了
+    </p>
+</main>
+<Footer/>
+</body>
+
+<style>
+    .bg-box {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 100%;
+        z-index: -1000;
+        background: url('../../public/images/background/0.jpg') no-repeat;
+        background-size: cover;
+    }
+
+    .bg-placeholder-box {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        height: 100vh;
+    }
+
+    main {
+        background: #ffffffaa;
+    }
+</style>
+</html>
