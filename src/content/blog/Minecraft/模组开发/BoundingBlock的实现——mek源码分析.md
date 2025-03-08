@@ -137,3 +137,19 @@ public void removeBoundingBlocks(Level world, BlockPos pos, BlockState state) {
 
 ### 物品（Item）部分
 BoundingBlock的物品放置逻辑在`ItemBlockTooltip`类中。（话说这什么鬼名字。）
+[mekanism.common.item.block.ItemBlockTooltip](https://github.com/mekanism/Mekanism/blob/9c21d943e65277231cffb2f739a246b047cbda20/src/main/java/mekanism/common/item/block/ItemBlockTooltip.java#L72-L80)
+```java startLineNumber=72
+@Override
+public boolean placeBlock(@NotNull BlockPlaceContext context, @NotNull BlockState state) {
+    AttributeHasBounding hasBounding = Attribute.get(state, AttributeHasBounding.class);
+    if (hasBounding == null) {
+        return super.placeBlock(context, state);
+    }
+
+    return hasBounding.handle(context.getLevel(), context.getClickedPos(), state, context, (level, pos, ctx) -> WorldUtils.isValidReplaceableBlock(level, ctx, pos)) && super.placeBlock(context, state);
+}
+```
+这个方法的逻辑是，如果这个物品对应的方块不是BoundingBlock，就用原版的放置逻辑；如果是BoundingBlock，就把`BlockPlaceContext`类型的
+`context`传给`handle`方法，判断是否每个格子都可以合法地放置。
+
+
